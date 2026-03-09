@@ -1,0 +1,7 @@
+<form action="updateInfo" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{users.id}}">
+    <input type="text" name="newUsername" value="{{users.username}}">
+    <input type="text" name="newPassword" value="{{users.password}}">
+    <button type="submit">Submit</button>
+</form>
