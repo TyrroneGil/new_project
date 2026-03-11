@@ -181,7 +181,7 @@ def author_detail(request, author_id):
 - `Model.objects.create(field=value)`: Create a new object
 - `object.save()`: Save changes to an object
 - `Model.object.filter(id=1).delete()`: Delete an object
-- `Model.object.filter(id=1).update()`: Update an object
+- `Model.object.filter(id=1).update(field=newValue,field2=newValue)`: Update an object
 
 </div>
 </div>
