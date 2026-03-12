@@ -27,3 +27,9 @@ class ApiDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'api_details'
+
+
+class TodoList(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    status = models.BooleanField(default=False)

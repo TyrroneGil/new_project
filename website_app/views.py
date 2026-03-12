@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-from .models import ApiDetails
+from .models import ApiDetails, TodoList
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -23,28 +23,27 @@ def fetchFromForm(request):
 #         uid = request.POST['id']
 #         Users.objects.get(id=uid)
 
-def deleteUser(request):
+@csrf_exempt
+def addTodo(request):
     if request.method == "POST":
-        uid = request.POST['id']
-        Users.objects.filter(id=uid).delete()
-    return redirect('/')
+        data = json.loads(request.body)
+        title = data.get("title")
+        desc = data.get('description')
+        status = data.get('status')
+        TodoList.objects.create(title=title,description=desc)
+        return JsonResponse({"message":"added successfully"})
 
-def updatePage(request):
-    if request.method == "POST":
-        uid = request.POST['id']
-        user = Users.objects.get(id=uid)
-        return render(request,'update.html',{"users":user})
+def readTodo(request):
+    if request.method == "GET":
+        todolists=list(TodoList.objects.all().values())
+        
+        return JsonResponse({"lists":todolists})
 
-def updateInformation(request):
-    if request.method == "POST":
-        uid = request.POST['id']
-        newUsername = request.POST['newUsername']
-        newPassword = request.POST['newPassword']
-        Users.objects.filter(id = uid).update(username=newUsername,password=newPassword)
-        return redirect('/')
+def deleteTodo(request,id):
+    if request.method == "GET":
+        TodoList.objects.filter(id=id).delete()
+        return JsonResponse({"message":'Deleted Successfully'})
 
-
-def test(request):
-    return JsonResponse({"message":"Hello"})
+    
 
 
