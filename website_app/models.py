@@ -15,3 +15,15 @@ class Post(models.Model):
 class Users(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
+
+class ApiDetails(models.Model):
+    id = models.IntegerField(blank=True, null=False,primary_key=True)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    gender = models.CharField(max_length=50, blank=True, null=True)
+    ip_address = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'api_details'

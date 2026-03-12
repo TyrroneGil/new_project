@@ -5,5 +5,6 @@ urlpatterns = [
     path('addUser',views.fetchFromForm),
     path('deleteUser',views.deleteUser),
     path('updatePage',views.updatePage),
-    path('updateInfo',views.updateInformation)
+    path('updateInfo',views.updateInformation),
+    path('test',views.test)
 ]
