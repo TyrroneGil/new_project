@@ -1,0 +1,75 @@
+function runreact{
+ cd $HOME\Documents\React\react-js
+ npm run dev
+}
+
+function runback {
+    cd $HOME\Documents\React\react-js\database
+    node --watch server.js
+}
+
+function djangoLocal{
+	python manage.py runserver
+}
+
+function djangoIP {
+    param(
+        [string]$ip = (
+            Get-NetIPAddress -AddressFamily IPv4 | 
+Where-Object { $_.InterfaceAlias -notlike "*Loopback*" -and $_.IPAddress -notlike "169.254.*" } |
+Select-Object -First 1 -ExpandProperty IPAddress
+),
+        [int]$port = 8000
+    )
+
+    Write-Host "Starting Django on ${ip}:${port} ..."
+
+    # Run Django server
+    & python manage.py runserver "${ip}:${port}"
+}
+
+function gitupdate{
+        param(
+	[string]$message = ""	
+)
+	
+	git add .
+	git commit -m "${message}"
+	git push origin main
+}
+
+
+function gitCreateRepo{
+	param(
+	[string]$repo = ""	
+)
+
+	git init
+	git add .
+	git commit -m 'initialize'
+	git branch -M main
+	git remote add origin ${repo}
+	git push -u origin main
+}
+
+function check{
+	param(
+	[string]$message = ""
+
+	
+)
+	if($message -is [string]){
+	Write-Host "Its a string"
+	}else{
+	Write-Host "Its not a string"
+	}
+}
+
+
+function runFrontBack{
+  param(
+        [string]$Path = (Get-Location)
+    )
+    Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd '$Path'; npm run dev"
+    Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd '$Path/database'; node --watch server.js"
+}
