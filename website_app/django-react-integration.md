@@ -296,8 +296,29 @@ cd frontend
 npm install axios
 
 # Optional: Install Bootstrap for UI styling
-npm install bootstrap reactstrap
+npm install tailwindcss @tailwindcss/vite
 ```
+---
+```javascript
+Open the vite.config.js (or vite.config.ts) file in your project's root directory. Import the tailwindcss plugin and add it to the plugins array.
+javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite'; // Import the plugin
+
+// https://vitejs.dev
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(), // Add the plugin here
+  ],
+});
+
+
+
+```
+
+
 
 ### 8.3 Add Proxy to `package.json`
 
