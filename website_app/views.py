@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-from .models import ApiDetails, TodoList
+from django.contrib.auth.hashers import make_password, check_password
+from .models import ApiDetails, TodoList, Users
 from django.views.decorators.csrf import csrf_exempt
 import json
 
 # Create your views here.
 def renderIndex(request):
     details = list(ApiDetails.objects.all().values())
-
     return JsonResponse({"message":details})
 @csrf_exempt
 def fetchFromForm(request):
@@ -22,6 +22,23 @@ def fetchFromForm(request):
 #     if request.method == "POST":
 #         uid = request.POST['id']
 #         Users.objects.get(id=uid)
+
+
+def AddUserWithHash(request):
+    hashedPassword = make_password("testPass")
+    user = Users.objects.create(
+        username="Tyrrone",
+        password=hashedPassword
+    )
+    return JsonResponse({"message":"Added Successfully"})
+
+
+def Authenticate(request):
+    user = Users.objects.get(id=8)
+    if check_password('testPass123',user.password):
+        return JsonResponse({"Message":"Correct Password"})
+    else:
+        return JsonResponse({"Messsage":"Incorrect Password"})
 
 @csrf_exempt
 def addTodo(request):
