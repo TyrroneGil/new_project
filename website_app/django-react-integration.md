@@ -283,7 +283,7 @@ urlpatterns = [
 cd ..   # Go back to django-react-app/
 
 # Create React app
-npx create-react-app frontend
+npx create-vite@latest frontend
 
 # Navigate into frontend
 cd frontend
