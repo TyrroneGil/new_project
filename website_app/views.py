@@ -8,7 +8,13 @@ import json
 # Create your views here.
 def renderIndex(request):
     details = list(ApiDetails.objects.all().values())
-    return JsonResponse({"message":details})
+    return render(request,'index.html')
+
+def renderLogin(request):
+    return render(request,'login.html')    
+
+def renderHomePage(request):
+    return render(request,'homepage.html')
 @csrf_exempt
 def fetchFromForm(request):
     if request.method == "POST":
@@ -25,20 +31,26 @@ def fetchFromForm(request):
 
 
 def AddUserWithHash(request):
-    hashedPassword = make_password("testPass")
-    user = Users.objects.create(
-        username="Tyrrone",
-        password=hashedPassword
-    )
-    return JsonResponse({"message":"Added Successfully"})
+    if request.method == "POST":
+        username=request.POST['username']
+        password = request.POST['password']
+        hashedPassword = make_password(password)
+        user = Users.objects.create(
+            username=username,
+            password=hashedPassword
+        )
+    return redirect('/login')
 
 
 def Authenticate(request):
-    user = Users.objects.get(id=8)
-    if check_password('testPass123',user.password):
-        return JsonResponse({"Message":"Correct Password"})
-    else:
-        return JsonResponse({"Messsage":"Incorrect Password"})
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = Users.objects.get(username=username)
+        if check_password(password,user.password):
+            return redirect('/home')
+        else:
+            return redirect('/login')
 
 @csrf_exempt
 def addTodo(request):
