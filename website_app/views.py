@@ -5,17 +5,21 @@ from .models import ApiDetails, TodoList, Users,Profile
 from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework import  viewsets
-from .serializer import UserModelSerializer,ProfileModelSerializer
+from .serializer import  TodoListModelSerializer
 
 
-class UserViewSets(viewsets.ModelViewSet):
-    queryset=Users.objects.all()
-    serializer_class=UserModelSerializer
+class TodoListViewSets(viewsets.ModelViewSet):
+    queryset=TodoList.objects.all()
+    serializer_class=TodoListModelSerializer
 
-class ProfileViewSets(viewsets.ModelViewSet):
-    queryset=Profile.objects.all()
-    serializer_class = ProfileModelSerializer
 
+# class UserViewSets(viewsets.ModelViewSet):
+#     queryset=Users.objects.all()
+#     serializer_class=UserModelSerializer
+
+# class ProfileViewSets(viewsets.ModelViewSet):
+#     queryset=Profile.objects.all()
+#     serializer_class = ProfileModelSerializer
 
 
 

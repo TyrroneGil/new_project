@@ -9,8 +9,8 @@ function App() {
 
   async function deleteTodo(id){
     try{
-      const response = await fetch(`http://localhost:8000/deleteTodo/${id}`,{
-        method:'GET'
+      const response = await fetch(`http://localhost:8000/todolists/${id}/`,{
+        method:'DELETE'
       })
       const result = await response.json()
       console.log(result.message)
@@ -23,7 +23,7 @@ function App() {
   async function sendData(e) {
     e.preventDefault() // Prevent page refresh
     try {
-      const response = await fetch('http://localhost:8000/addTodo', {
+      const response = await fetch('http://localhost:8000/todolists/', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -42,12 +42,12 @@ function App() {
 
   async function getData(){
     try{
-      const response = await fetch('http://localhost:8000/getTodo',{
+      const response = await fetch('http://localhost:8000/todolists/',{
         method:"GET"
       })
 
       const result = await response.json()
-      setLists(result.lists)
+      setLists(result)
     }catch(error){
       console.error(error)
     }

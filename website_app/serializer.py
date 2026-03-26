@@ -1,12 +1,7 @@
 from rest_framework import serializers
-from .models import Users, Profile
+from .models import TodoList
 
-class UserModelSerializer(serializers.ModelSerializer):
+class TodoListModelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Users
-        fields = "__all__"
-    
-class ProfileModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
+        model = TodoList
         fields = "__all__"
