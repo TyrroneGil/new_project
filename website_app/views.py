@@ -1,17 +1,20 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
-from .models import ApiDetails, TodoList, Users
+from .models import ApiDetails, TodoList, Users,Profile
 from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework import  viewsets
-from .serializer import UserModelSerializer
+from .serializer import UserModelSerializer,ProfileModelSerializer
 
 
 class UserViewSets(viewsets.ModelViewSet):
     queryset=Users.objects.all()
     serializer_class=UserModelSerializer
 
+class ProfileViewSets(viewsets.ModelViewSet):
+    queryset=Profile.objects.all()
+    serializer_class = ProfileModelSerializer
 
 
 
